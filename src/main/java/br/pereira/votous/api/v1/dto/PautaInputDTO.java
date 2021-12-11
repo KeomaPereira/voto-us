@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VotoInputDTO {
+public class PautaInputDTO {
 
-    private Integer cdPauta;
-    private String cpf;
+    private String titulo;
+    private String descicao;
 }

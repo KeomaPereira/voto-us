@@ -27,8 +27,7 @@ public class VotoService {
     public VotoOutputDTO votar(VotoInputDTO dto) throws BusinessException {
         try {
             validarCpf(dto.getCpf());
-            return converter.toVotoOutputDTO(
-                    repository.save(converter.toEntity(dto.getCdPauta(), dto.getCpf())));
+            return converter.toVotoOutputDTO(repository.save(converter.toEntity(dto)));
         } catch (Exception e) {
             LOGGER.error(MSG_ERRO_VOTAR + " Erro: " + e.getMessage());
             throw new BusinessException(MSG_ERRO_VOTAR + " Erro: " + e.getMessage());

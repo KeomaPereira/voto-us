@@ -26,7 +26,7 @@ public class PautaConverter {
         return dto;
     }
 
-    public List<PautaOutputDTO> toListaOutputDTO (List<PautaEntity> entities) {
+    public List<PautaOutputDTO> toListOutputDTO(List<PautaEntity> entities) {
         return entities.stream().map(entity -> toOutputDTO(entity)).collect(Collectors.toList());
     }
 

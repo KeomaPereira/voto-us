@@ -12,6 +12,8 @@ public class VotoConverter {
         VotoEntity entity = new VotoEntity();
         entity.setCdPauta(dto.getCdPauta());
         entity.setCpf(dto.getCpf());
+        entity.setVoto(dto.getVoto());
+        entity.setCdSessao(dto.getCdSessao());
         return entity;
     }
 
@@ -20,6 +22,8 @@ public class VotoConverter {
         dto.setCdPauta(entity.getCdPauta());
         dto.setCdVoto(entity.getCdVoto());
         dto.setCpf(entity.getCpf());
+        dto.setVoto(entity.getVoto());
+        dto.setCdSessao(entity.getCdSessao());
         return dto;
     }
 

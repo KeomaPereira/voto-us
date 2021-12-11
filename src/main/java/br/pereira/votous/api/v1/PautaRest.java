@@ -25,7 +25,8 @@ class PautaRest {
 
     @ApiOperation(value = "Criar uma pauta")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Pauta")
+            @ApiResponse(code = 201, message = "Pauta"),
+            @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @PostMapping
     public ResponseEntity<PautaOutputDTO> criar(@Valid @RequestBody PautaInputDTO dto) throws BusinessException {

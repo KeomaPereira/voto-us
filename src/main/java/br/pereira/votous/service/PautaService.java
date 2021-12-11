@@ -35,7 +35,7 @@ public class PautaService {
 
     public List<PautaOutputDTO> buscar() throws BusinessException {
         try {
-            return pautaConverter.toListaOutputDTO(repository.findAll());
+            return pautaConverter.toListOutputDTO(repository.findAll());
         } catch (Exception e) {
             LOGGER.error(MSG_ERRO + " Erro: " + e.getMessage());
             throw new BusinessException(MSG_ERRO + " Erro: " + e.getMessage());

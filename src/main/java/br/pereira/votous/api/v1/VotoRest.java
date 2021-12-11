@@ -24,7 +24,8 @@ class VotoRest {
     @ApiOperation(value = "Votar em uma pauta")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Voto realizado"),
-            @ApiResponse(code = 404, message = "CPF invalido")
+            @ApiResponse(code = 404, message = "CPF invalido"),
+            @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @PostMapping
     public ResponseEntity<VotoOutputDTO> votar(@Valid @RequestBody VotoInputDTO dto) throws BusinessException {

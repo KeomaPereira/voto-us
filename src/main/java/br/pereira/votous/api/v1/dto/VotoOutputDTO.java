@@ -8,8 +8,6 @@ import lombok.Setter;
 public class VotoOutputDTO {
 
     private Long cdVoto;
-
     private Integer cdPauta;
-
     private String cpf;
 }

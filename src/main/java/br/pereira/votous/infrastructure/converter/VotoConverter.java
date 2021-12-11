@@ -1,4 +1,4 @@
-package br.pereira.votous.converter;
+package br.pereira.votous.infrastructure.converter;
 
 import br.pereira.votous.api.v1.dto.VotoOutputDTO;
 import br.pereira.votous.entity.VotoEntity;

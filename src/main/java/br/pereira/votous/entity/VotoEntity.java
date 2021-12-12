@@ -24,7 +24,7 @@ public class VotoEntity {
 
     @Column(name = "cd_pauta")
     @NotNull
-    private Integer cdPauta;
+    private Long cdPauta;
 
     @Column(name = "cd_sessao")
     @NotNull

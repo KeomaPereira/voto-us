@@ -10,7 +10,7 @@ public class VotoOutputDTO {
 
     private Long cdVoto;
     private Integer cdSessao;
-    private Integer cdPauta;
+    private Long cdPauta;
     private String cpf;
     private VotoEnum voto;
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +50,15 @@ public class SessaoService {
             LOGGER.error(MSG_ERRO + " Erro: " + e.getMessage());
             throw new BusinessException(MSG_ERRO + " Erro: " + e.getMessage());
         }
+    }
+
+    public List<SessaoEntity> buscarNaoProcessados() {
+        return repository.findAllNaoProcessados();
+    }
+
+    public void encerrarSessao(SessaoEntity sessaoEntity) {
+        sessaoEntity.setDataFim(LocalDateTime.now());
+        repository.save(sessaoEntity);
     }
 
 }

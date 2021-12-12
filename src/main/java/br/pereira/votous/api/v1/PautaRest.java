@@ -35,8 +35,8 @@ class PautaRest {
 
     @ApiOperation(value = "buscar pautas")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Pauta"),
-            @ApiResponse(code = 404, message = "Pauta nao encontrada"),
+            @ApiResponse(code = 200, message = "Busca realizada"),
+            @ApiResponse(code = 404, message = "Erro ao buscar"),
             @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @GetMapping
@@ -48,8 +48,8 @@ class PautaRest {
 
     @ApiOperation(value = "buscar uma pauta")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Pauta"),
-            @ApiResponse(code = 404, message = "Pauta nao encontrada"),
+            @ApiResponse(code = 200, message = "Busca realizada"),
+            @ApiResponse(code = 404, message = "Erro ao buscar"),
             @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @GetMapping("/{codigo}")

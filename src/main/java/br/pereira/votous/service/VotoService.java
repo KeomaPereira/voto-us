@@ -3,6 +3,7 @@ package br.pereira.votous.service;
 import br.pereira.votous.api.exception.BusinessException;
 import br.pereira.votous.api.v1.dto.VotoInputDTO;
 import br.pereira.votous.api.v1.dto.VotoOutputDTO;
+import br.pereira.votous.entity.VotoEntity;
 import br.pereira.votous.infrastructure.client.HerokuClient;
 import br.pereira.votous.infrastructure.client.enums.StatusCpfEnum;
 import br.pereira.votous.infrastructure.converter.VotoConverter;
@@ -11,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -39,6 +42,10 @@ public class VotoService {
             LOGGER.error(MSG_NAO_PERMITIDO + "CPF: " + cpf);
             throw new BusinessException(MSG_NAO_PERMITIDO);
         }
+    }
+
+    public List<VotoEntity> buscar(Long cdPauta) {
+        return repository.findAllByCdPauta(cdPauta);
     }
 
 }

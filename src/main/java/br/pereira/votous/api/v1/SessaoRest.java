@@ -23,7 +23,8 @@ class SessaoRest {
 
     @ApiOperation(value = "Criar uma sessao")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Sessao criada")
+            @ApiResponse(code = 201, message = "Sessao criada"),
+            @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @PostMapping("/{codigoPauta}")
     public ResponseEntity<Long> criar(@PathVariable("codigoPauta") Long codigoPauta) throws BusinessException {
@@ -32,8 +33,8 @@ class SessaoRest {
 
     @ApiOperation(value = "buscar sessoes")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Sessao"),
-            @ApiResponse(code = 404, message = "Sessao nao encontrada"),
+            @ApiResponse(code = 200, message = "Busca realizada"),
+            @ApiResponse(code = 404, message = "Erro ao buscar"),
             @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @GetMapping
@@ -45,8 +46,8 @@ class SessaoRest {
 
     @ApiOperation(value = "buscar uma sessao")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Sessao"),
-            @ApiResponse(code = 404, message = "Sessao nao encontrada"),
+            @ApiResponse(code = 200, message = "Busca realizada"),
+            @ApiResponse(code = 404, message = "Erro ao buscar"),
             @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @GetMapping("/{codigo}")

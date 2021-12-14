@@ -5,34 +5,44 @@ import br.pereira.votous.api.v1.enums.VotoEnum;
 import br.pereira.votous.entity.Rateio;
 import br.pereira.votous.entity.Sessao;
 import br.pereira.votous.infrastructure.converter.RateioConverter;
+import br.pereira.votous.infrastructure.evento.producer.RateioProducer;
 import br.pereira.votous.repository.RateioRepository;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@AllArgsConstructor
-@Component
+@Service
 public class RateioService {
 
     private final SessaoService sessaoService;
     private final VotoService votoService;
     private final RateioRepository rateioRepository;
     private final RateioConverter converter;
+    private final RateioProducer rateioProducer;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RateioService.class);
     private static final String MSG_ERRO_RATEAR = "Ocorreu erro ao realizar o rateio dos votos.";
+
+    public RateioService(SessaoService sessaoService, VotoService votoService, RateioRepository rateioRepository, RateioConverter converter, RateioProducer rateioProducer) {
+        this.sessaoService = sessaoService;
+        this.votoService = votoService;
+        this.rateioRepository = rateioRepository;
+        this.converter = converter;
+        this.rateioProducer = rateioProducer;
+    }
 
     @Scheduled(cron = "${rateio.scheduler.cron}")
     private void processar() {
         try {
             sessaoService.buscarNaoProcessados().stream().forEach(sessao -> {
-                salvar(gerarEntity(sessao));
+                Rateio rateio = gerarEntity(sessao);
+                salvar(rateio);
                 sessaoService.encerrarSessao(sessao);
+                rateioProducer.enviar(rateio.toString());
             });
         } catch (Exception e){
             LOGGER.error(MSG_ERRO_RATEAR + " Erro: " + e.getMessage());

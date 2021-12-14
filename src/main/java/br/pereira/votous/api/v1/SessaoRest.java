@@ -27,7 +27,7 @@ class SessaoRest {
             @ApiResponse(code = 422, message = "Erro ao realizar a operacao")
     })
     @PostMapping("/{codigoPauta}")
-    public ResponseEntity<Long> criar(@PathVariable("codigoPauta") Long codigoPauta) throws BusinessException {
+    public ResponseEntity<SessaoOutputDTO> criar(@PathVariable("codigoPauta") Long codigoPauta) throws BusinessException {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(codigoPauta));
     }
 

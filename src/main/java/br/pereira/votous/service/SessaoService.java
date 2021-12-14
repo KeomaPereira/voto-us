@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -20,13 +21,18 @@ public class SessaoService {
 
     private SessaoRepository repository;
     private SessaoConverter converter;
+    private PautaService pautaService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SessaoService.class);
     private static final String MSG_ERRO = "Ocorreu erro ao criar sessao.";
+    private static final String MSG_ERRO_PAUTA_NAO_CADASTRADA = "Nao existe uma pauta cadastrada.";
 
-    public Long criar(Long cdPauta) throws BusinessException {
+    public SessaoOutputDTO criar(Long cdPauta) throws BusinessException {
         try {
-            return repository.save(converter.toEntity(cdPauta)).getCdSessao();
+            if (Objects.isNull(pautaService.buscar(cdPauta))) {
+                throw new BusinessException(MSG_ERRO_PAUTA_NAO_CADASTRADA);
+            }
+            return converter.toDTO(repository.save(converter.toEntity(cdPauta)));
         } catch (Exception e) {
             LOGGER.error(MSG_ERRO + " Erro: " + e.getMessage());
             throw new BusinessException(MSG_ERRO + " Erro: " + e.getMessage());

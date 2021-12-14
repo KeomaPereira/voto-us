@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "voto")
-public class VotoEntity {
+public class Voto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +22,9 @@ public class VotoEntity {
     @NotNull
     private String cpf;
 
-    @Column(name = "cd_pauta")
-    @NotNull
-    private Long cdPauta;
-
     @Column(name = "cd_sessao")
     @NotNull
-    private Integer cdSessao;
+    private Long cdSessao;
 
     @Column(name = "voto")
     @NotNull

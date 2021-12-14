@@ -1,16 +1,21 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/voto
+    username: root
+    password: 123456
+
   jpa:
+    hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate.ddl-auto: update
     hibernate:
-      format_sql: true
-      dialect: org.hibernate.dialect.H2Dialect
-      ddl-auto: update
-  h2:
-    console:
-      enabled: true
+      jdbc: time_zone = TimeZone
 
+user:
+  info:
+    base:
+      url: https://user-info.herokuapp.com/users/
 
+rateio:
+  scheduler:
+    cron: "* * 7 * * *"

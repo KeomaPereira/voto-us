@@ -8,8 +8,7 @@ import lombok.Setter;
 @Setter
 public class VotoInputDTO {
 
-    private Long cdPauta;
-    private Integer cdSessao;
+    private Long cdSessao;
     private String cpf;
     private VotoEnum voto;
 }

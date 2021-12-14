@@ -2,11 +2,13 @@ package br.pereira.votous.service;
 
 import br.pereira.votous.api.v1.dto.RateioOutputDTO;
 import br.pereira.votous.api.v1.enums.VotoEnum;
-import br.pereira.votous.entity.RateioEntity;
-import br.pereira.votous.entity.SessaoEntity;
+import br.pereira.votous.entity.Rateio;
+import br.pereira.votous.entity.Sessao;
 import br.pereira.votous.infrastructure.converter.RateioConverter;
 import br.pereira.votous.repository.RateioRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,18 +24,25 @@ public class RateioService {
     private final RateioRepository rateioRepository;
     private final RateioConverter converter;
 
-    @Scheduled(cron = "${sessao-scheduler.tempo}")
+    private static final Logger LOGGER = LoggerFactory.getLogger(RateioService.class);
+    private static final String MSG_ERRO_RATEAR = "Ocorreu erro ao realizar o rateio dos votos.";
+
+    @Scheduled(cron = "${rateio.scheduler.cron}")
     private void processar() {
-        sessaoService.buscarNaoProcessados().stream().forEach(sessao -> {
-            salvar(gerarRateioEntity(sessao));
-            sessaoService.encerrarSessao(sessao);
-        });
+        try {
+            sessaoService.buscarNaoProcessados().stream().forEach(sessao -> {
+                salvar(gerarEntity(sessao));
+                sessaoService.encerrarSessao(sessao);
+            });
+        } catch (Exception e){
+            LOGGER.error(MSG_ERRO_RATEAR + " Erro: " + e.getMessage());
+        }
     }
 
-    public RateioEntity gerarRateioEntity(SessaoEntity sessao){
+    public Rateio gerarEntity(Sessao sessao){
         AtomicReference<Integer> votosSim = new AtomicReference<>(0);
         AtomicReference<Integer> votosNao = new AtomicReference<>(0);
-        votoService.buscar(sessao.getCdPauta()).stream().forEach(votoEntity -> {
+        votoService.buscar(sessao.getCdSessao()).stream().forEach(votoEntity -> {
             if ((votoEntity.getVoto().equals(VotoEnum.SIM))) {
                 votosSim.set(votosSim.get() + 1);
             } else {
@@ -43,7 +52,7 @@ public class RateioService {
         return converter.toEntity(sessao, votosSim.get(), votosNao.get());
     }
 
-    public void salvar(RateioEntity entity) {
+    public void salvar(Rateio entity) {
         rateioRepository.save(entity);
     }
 

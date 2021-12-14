@@ -3,7 +3,7 @@ package br.pereira.votous.service;
 import br.pereira.votous.api.exception.BusinessException;
 import br.pereira.votous.api.v1.dto.VotoInputDTO;
 import br.pereira.votous.api.v1.dto.VotoOutputDTO;
-import br.pereira.votous.entity.VotoEntity;
+import br.pereira.votous.entity.Voto;
 import br.pereira.votous.infrastructure.client.HerokuClient;
 import br.pereira.votous.infrastructure.client.enums.StatusCpfEnum;
 import br.pereira.votous.infrastructure.converter.VotoConverter;
@@ -44,8 +44,8 @@ public class VotoService {
         }
     }
 
-    public List<VotoEntity> buscar(Long cdPauta) {
-        return repository.findAllByCdPauta(cdPauta);
+    public List<Voto> buscar(Long cdSessao) {
+        return repository.findAllByCdSessao(cdSessao);
     }
 
 }

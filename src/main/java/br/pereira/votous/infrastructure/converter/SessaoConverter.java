@@ -1,7 +1,7 @@
 package br.pereira.votous.infrastructure.converter;
 
 import br.pereira.votous.api.v1.dto.SessaoOutputDTO;
-import br.pereira.votous.entity.SessaoEntity;
+import br.pereira.votous.entity.Sessao;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 @Component
 public class SessaoConverter {
 
-    public SessaoEntity toEntity (Long cdPauta) {
-        SessaoEntity entity = new SessaoEntity();
+    public Sessao toEntity (Long cdPauta) {
+        Sessao entity = new Sessao();
         entity.setCdPauta(cdPauta);
         entity.setDataInicio(LocalDateTime.now());
         return entity;
     }
 
-    public SessaoOutputDTO toDTO (SessaoEntity entity) {
+    public SessaoOutputDTO toDTO (Sessao entity) {
         SessaoOutputDTO dto = new SessaoOutputDTO();
         dto.setCdPauta(entity.getCdPauta());
         dto.setCdSessao(entity.getCdSessao());
@@ -27,7 +27,7 @@ public class SessaoConverter {
         return dto;
     }
 
-    public List<SessaoOutputDTO> toListDTO (List<SessaoEntity> entities) {
+    public List<SessaoOutputDTO> toListDTO (List<Sessao> entities) {
         return entities.stream().map(entity -> toDTO(entity)).collect(Collectors.toList());
     }
 

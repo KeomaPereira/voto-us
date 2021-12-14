@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class HerokuClient {
 
-    @Value("${user-info.base-url}")
+    @Value("${user.info.base.url}")
     private String baseUrl;
 
     private final RestTemplate restTemplate;

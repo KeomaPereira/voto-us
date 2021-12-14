@@ -2,7 +2,7 @@ package br.pereira.votous.service;
 
 import br.pereira.votous.api.exception.BusinessException;
 import br.pereira.votous.api.v1.dto.SessaoOutputDTO;
-import br.pereira.votous.entity.SessaoEntity;
+import br.pereira.votous.entity.Sessao;
 import br.pereira.votous.infrastructure.converter.SessaoConverter;
 import br.pereira.votous.repository.SessaoRepository;
 import lombok.AllArgsConstructor;
@@ -44,7 +44,7 @@ public class SessaoService {
 
     public SessaoOutputDTO buscar(Long codigo) throws BusinessException {
         try {
-            Optional<SessaoEntity> entity = repository.findById(codigo);
+            Optional<Sessao> entity = repository.findById(codigo);
             return (entity.isPresent() ? converter.toDTO(entity.get()) : null);
         } catch (Exception e) {
             LOGGER.error(MSG_ERRO + " Erro: " + e.getMessage());
@@ -52,13 +52,13 @@ public class SessaoService {
         }
     }
 
-    public List<SessaoEntity> buscarNaoProcessados() {
+    public List<Sessao> buscarNaoProcessados() {
         return repository.findAllNaoProcessados();
     }
 
-    public void encerrarSessao(SessaoEntity sessaoEntity) {
-        sessaoEntity.setDataFim(LocalDateTime.now());
-        repository.save(sessaoEntity);
+    public void encerrarSessao(Sessao sessao) {
+        sessao.setDataFim(LocalDateTime.now());
+        repository.save(sessao);
     }
 
 }

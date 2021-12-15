@@ -29,14 +29,11 @@ public class VotoService {
     private static final String MSG_ERRO_VOTAR = "Ocorreu erro ao votar.";
     private static final String MSG_NAO_PERMITIDO = "CPF nao permite votacao.";
     private static final String MSG_ERRO_SESSAO_NAO_CADASTRADA = "Nao existe uma sessao cadastrada.";
+    private static final String MSG_ERRO_VOTO_REALIZADO = "Voto ja realizado nesta sessao.";
 
     public VotoOutputDTO votar(VotoInputDTO dto) throws BusinessException {
         try {
-            validarCpf(dto.getCpf());
-            if (Objects.isNull(sessaoService.buscar(dto.getCdSessao()))) {
-                throw new BusinessException(MSG_ERRO_SESSAO_NAO_CADASTRADA);
-            }
-            sessaoService.buscar(dto.getCdSessao());
+            validarSeCpfPodeVotar(dto);
             return converter.toVotoOutputDTO(repository.save(converter.toEntity(dto)));
         } catch (Exception e) {
             LOGGER.error(MSG_ERRO_VOTAR + " Erro: " + e.getMessage());
@@ -44,7 +41,17 @@ public class VotoService {
         }
     }
 
-    public void validarCpf(String cpf) throws BusinessException {
+    public void validarSeCpfPodeVotar(VotoInputDTO dto) throws BusinessException {
+        verificarStatusCPF(dto.getCpf());
+        if (Objects.isNull(sessaoService.buscar(dto.getCdSessao()))) {
+            throw new BusinessException(MSG_ERRO_SESSAO_NAO_CADASTRADA);
+        }
+        if (!buscar(dto.getCdSessao(), dto.getCpf()).isEmpty()) {
+            throw new BusinessException(MSG_ERRO_VOTO_REALIZADO);
+        }
+    }
+
+    public void verificarStatusCPF(String cpf) throws BusinessException {
         if (herokuClient.buscarStatus(cpf).getStatus().equals(StatusCpfEnum.UNABLE_TO_VOTE)) {
             LOGGER.error(MSG_NAO_PERMITIDO + "CPF: " + cpf);
             throw new BusinessException(MSG_NAO_PERMITIDO);
@@ -53,6 +60,10 @@ public class VotoService {
 
     public List<Voto> buscar(Long cdSessao) {
         return repository.findAllByCdSessao(cdSessao);
+    }
+
+    public List<Voto> buscar(Long cdSessao, String cpf) {
+        return repository.findAllByCdSessaoAndCpf(cdSessao, cpf);
     }
 
 }

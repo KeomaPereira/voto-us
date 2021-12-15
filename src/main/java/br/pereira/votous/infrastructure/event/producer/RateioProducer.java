@@ -1,4 +1,4 @@
-package br.pereira.votous.infrastructure.evento.producer;
+package br.pereira.votous.infrastructure.event.producer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

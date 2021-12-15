@@ -13,7 +13,7 @@ public class BusinessExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity tratar (BusinessException e) {
         ApiError error = new ApiError(
-                "voto_nao_efetivado",
+                "processo_nao_efetivado",
                  e.getMessage(),
                 LocalDateTime.now());
 

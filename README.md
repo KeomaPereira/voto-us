@@ -12,7 +12,9 @@ O objetivo desse projeto é resolver o desafio proposto para criar uma API REST 
 
 # Solução
 
-Criado uma API REST com java e spring boot chamada voto-us para gerenciamento dos votos. Existem endpoints para gerenciamento dos recursos de votos, sessões, rateios e pautas. A API utiliza o swagger para documentação dos recursos. Para cada sessão de votação é vinculada uma pauta onde é possivel pessoas fisicas votarem. O encerramento da sessão é realizado por um scheduler parametrizavel (dias, horas e minutos), após o encerramento da sessão é realizado o rateio dos votos, gravando o resultado em uma tabela. Para o versionamento de base é utilizado o flyway.
+Criado uma API REST com java e spring boot chamada voto-us para gerenciamento dos votos. Existem endpoints para gerenciamento dos recursos de votos, sessões, rateios e pautas. A API utiliza o swagger para documentação dos recursos. 
+Para cada sessão de votação é vinculada uma pauta onde é possivel pessoas fisicas votarem. Para o versionamento de base é utilizado o flyway.
+O encerramento da sessão é realizado por um scheduler parametrizavel (dias, horas e minutos), após o encerramento da sessão é realizado o rateio dos votos, gravando o resultado em uma tabela e após enviado para um tópico do kafka.
 
 
 # Tecnologias
@@ -20,6 +22,8 @@ Criado uma API REST com java e spring boot chamada voto-us para gerenciamento do
 ● Spring Boot.
 ● MySQL.
 ● Flyway.
+● Java.
+● Kafka.
 
 
 # Serviços
@@ -61,10 +65,6 @@ Buscar uma pauta especifica.
 Buscar rateios de votos
 
 
-### Testes automatizados
-TODO
-
-
 ### Documentação adicional
 Para consultar mais projetos do autor, consulte o seu repositório no github.
 
@@ -73,6 +73,7 @@ Para consultar mais projetos do autor, consulte o seu repositório no github.
 
 
 ### Configuração
-TODO
+Para rodar o projeto é necessário ter um servidor de bando de dados MySql com uma base chamada "voto" e também o kafka rodando para poder enviar para a fila. 
+Para realizar o rateio, é necessário configurar o tempo do sceduler para execução no arquivo YML.  
 
 

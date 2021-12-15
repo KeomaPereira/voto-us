@@ -32,7 +32,7 @@ O encerramento da sessão é realizado por um scheduler parametrizavel (dias, ho
 ### Recurso VOTOS
 
 ### POST v1/votos
-Cadastrar votos em sessões de votação. O CPF precisa ser valido, é realizada uma consulta no serviço GET https://user-info.herokuapp.com/users/{cpf} que valida o CPF, se o mesmo foi válido, aleatóriamente retorna se o CPF pode ou não votar.
+Cadastrar votos em sessões de votação. O CPF precisa ser valido, é realizada uma consulta no serviço GET https://user-info.herokuapp.com/users/{cpf} que valida o CPF, se o mesmo foi válido, aleatóriamente retorna se o CPF pode ou não votar, é possível somente votar em uma sessão por CPF.
 
 
 ### Recurso PAUTAS
@@ -74,6 +74,6 @@ Para consultar mais projetos do autor, consulte o seu repositório no github.
 
 ### Configuração
 Para rodar o projeto é necessário ter um servidor de bando de dados MySql com uma base chamada "voto" e também o kafka rodando para poder enviar para a fila. 
-Para realizar o rateio, é necessário configurar o tempo do sceduler para execução no arquivo YML.  
+Para realizar o rateio, é necessário configurar o tempo do scheduler para execução no arquivo YML.  
 
 

@@ -59,7 +59,7 @@ Buscar pautas.
 Buscar uma pauta especifica.
 
 
-###Recurso RATEIOS
+### Recurso RATEIOS
 
 ### GET v1/rateios
 Buscar rateios de votos

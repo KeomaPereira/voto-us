@@ -12,4 +12,6 @@ public interface VotoRepository
 
     List<Voto> findAllByCdSessao(Long cdPauta);
 
+    List<Voto> findAllByCdSessaoAndCpf(Long cdPauta, String cpf);
+
 }

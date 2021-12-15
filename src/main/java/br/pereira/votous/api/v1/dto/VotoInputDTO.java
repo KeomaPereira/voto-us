@@ -17,6 +17,6 @@ public class VotoInputDTO {
     @NotBlank
     private String cpf;
 
-    @NotBlank
+    @NotNull
     private VotoEnum voto;
 }

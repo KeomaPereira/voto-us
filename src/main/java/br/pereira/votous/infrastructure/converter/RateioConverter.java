@@ -24,7 +24,7 @@ public class RateioConverter {
 
     public RateioOutputDTO toDTO (Rateio entity) {
         RateioOutputDTO dto = new RateioOutputDTO();
-        dto.setCdPauta(entity.getCdPauta());
+        dto.setCdRateio(entity.getCdRateio());
         dto.setCdPauta(entity.getCdPauta());
         dto.setCdSessao(entity.getCdSessao());
         dto.setDataFim(entity.getDataFim());

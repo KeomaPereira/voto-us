@@ -5,7 +5,7 @@ import br.pereira.votous.api.v1.enums.VotoEnum;
 import br.pereira.votous.entity.Rateio;
 import br.pereira.votous.entity.Sessao;
 import br.pereira.votous.infrastructure.converter.RateioConverter;
-import br.pereira.votous.infrastructure.evento.producer.RateioProducer;
+import br.pereira.votous.infrastructure.event.producer.RateioProducer;
 import br.pereira.votous.repository.RateioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class RateioService {
     }
 
     @Scheduled(cron = "${rateio.scheduler.cron}")
-    private void processar() {
+    public void processar() {
         try {
             sessaoService.buscarNaoProcessados().stream().forEach(sessao -> {
                 Rateio rateio = gerarEntity(sessao);

@@ -43,7 +43,7 @@ Cadastrar pautas para votação.
 ### GET v1/pautas
 Buscar pautas.
 
-### GET v1/pautas
+### GET v1/pautas/{codigo}
 Buscar uma pauta especifica.
 
 
@@ -55,7 +55,7 @@ Cadastrar sessões de votação.
 ### GET v1/sessoes
 Buscar pautas.
 
-### GET v1/sessoes
+### GET v1/sessoes/{codigo}
 Buscar uma pauta especifica.
 
 

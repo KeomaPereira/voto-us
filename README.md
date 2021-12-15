@@ -50,13 +50,13 @@ Buscar uma pauta especifica.
 ### Recurso SESSÕES
 
 ### POST v1/sessoes
-Cadastrar sessões de votação.
+Cadastrar sessão de votação.
 
 ### GET v1/sessoes
-Buscar pautas.
+Buscar sessões.
 
 ### GET v1/sessoes/{codigo}
-Buscar uma pauta especifica.
+Buscar uma sessão especifica.
 
 
 ### Recurso RATEIOS
